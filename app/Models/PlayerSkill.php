@@ -7,9 +7,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\PlayerSkill as PlayerSkillEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PlayerSkill extends Model
 {
@@ -25,7 +26,7 @@ class PlayerSkill extends Model
     ];
 
     protected $casts = [
-        'skill' => \App\Enums\PlayerSkill::class
+        'skill' => PlayerSkillEnum::class
     ];
 
     public function player(): BelongsTo

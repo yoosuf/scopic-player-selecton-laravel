@@ -35,8 +35,33 @@ class Player extends Model
 
     protected $with = ['skills'];
 
+
+    /**
+     * Asociation for SKills Table
+     *
+     * @return HasMany
+     */
     public function skills(): HasMany
     {
         return $this->hasMany(PlayerSkill::class);
     }
+
+
+    /**
+     * Scope function to query BestPlayersForRequirement
+     *
+     * @param [type] $query
+     * @param [type] $requirement
+     * @return void
+     */
+    public function scopeBestPlayersForRequirement($query, $requirement)
+    {
+        return $query->where('position', $requirement['position'])
+            ->join('player_skills', 'players.id', '=', 'player_skills.player_id')
+            ->where('player_skills.skill', $requirement['mainSkill'])
+            ->orderByDesc('player_skills.value')
+            ->take($requirement['numberOfPlayers'])
+            ->select('players.*', 'player_skills.skill', 'player_skills.value');
+    }
+
 }
