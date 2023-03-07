@@ -29,7 +29,7 @@ class TeamSelectionRequest extends FormRequest
         return [
             "*.position" => ['required', new Enum(PlayerPosition::class)],
             "*.mainSkill" => ['required', new Enum(PlayerSkill::class)],
-            "*.numberOfPlayers" => ['required', 'integer', 'between:0,100'],
+            "*.numberOfPlayers" => ['required', 'integer', 'between:1,100'],
         ];
     }
 }

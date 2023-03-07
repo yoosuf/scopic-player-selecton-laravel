@@ -31,7 +31,7 @@ class PlayerRequest extends FormRequest
             'position' => ['required', 'string',  new Enum(PlayerPosition::class)],
             'playerSkills' => ['required', 'array', 'min:1'],
             'playerSkills.*.skill' => ['required', 'string',  new Enum(PlayerSkill::class)],
-            'playerSkills.*.value' => ['required', 'integer', 'between:0,100'],
+            'playerSkills.*.value' => ['required', 'integer', 'between:1,100'],
         ];
     }
 }

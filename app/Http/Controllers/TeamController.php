@@ -9,6 +9,15 @@ use App\Http\Requests\TeamSelectionRequest;
 
 class TeamController extends Controller
 {
+    /**
+     * team selected process function
+     *
+     * method post
+     *
+     *
+     * @param TeamSelectionRequest $request
+     * @return void
+     */
     public function process(TeamSelectionRequest $request)
     {
         $requirements = $request->json()->all();
@@ -18,7 +27,6 @@ class TeamController extends Controller
         $error  = [];
 
         foreach ($requirements as $requirement) {
-
             $bestPlayers = Player::bestPlayersForRequirement($requirement)->get();
 
             if (count($bestPlayers) != $requirement['numberOfPlayers'])
@@ -33,22 +41,14 @@ class TeamController extends Controller
 
         $result = [];
 
-
         foreach ($players as $player) {
-
-
-
             $key = array_search($player->position, array_column($result, 'position'));
             $result[] = $player;
         }
 
-
-        if (empty($error)) {
+        if (empty($error))
             return PlayerResource::collection($result);
-        }
 
         return response()->json(["message" => $error], 400);;
-
-
     }
 }
